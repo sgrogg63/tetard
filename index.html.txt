@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Page d'accueil de Pierre</title>
+  <style>
+    /* Fond lunaire */
+    body {
+      margin: 0;
+      padding: 0;
+      background: url('lune.jpg') no-repeat center center fixed;
+      background-size: cover;
+      font-family: Arial, sans-serif;
+      color: white;
+      text-align: center;
+    }
+
+    /* Brume flottante */
+    .fog {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      background: url('https://i.ibb.co/7rZfYkP/fog-texture.png') repeat;
+      opacity: 0.15;
+      animation: moveFog 60s linear infinite;
+      z-index: 1;
+    }
+
+    @keyframes moveFog {
+      from { background-position: 0 0; }
+      to { background-position: 2000px 0; }
+    }
+
+    /* Contenu principal */
+    .container {
+      position: relative;
+      z-index: 2; /* au-dessus de la brume */
+      padding-top: 100px;
+    }
+
+    .time {
+      font-size: 3em;
+      margin: 20px 0;
+    }
+
+    .quote {
+      font-style: italic;
+      margin: 20px 0;
+    }
+
+    .links a {
+      color: white;
+      margin: 0 10px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <!-- Brume -->
+  <div class="fog"></div>
+
+  <!-- Contenu -->
+  <main class="container">
+    <h1>Bienvenue, Pierre</h1>
+    <div class="time" id="time">--:--</div>
+    <div class="quote" id="quote"></div>
+    <div class="links">
+      <a href="https://www.google.com">Google</a>
+      <a href="https://www.youtube.com">YouTube</a>
+      <a href="https://www.github.com">GitHub</a>
+    </div>
+  </main>
+
+  <script>
+    // Horloge en direct
+    function updateTime() {
+      const now = new Date();
+      const h = String(now.getHours()).padStart(2, '0');
+      const m = String(now.getMinutes()).padStart(2, '0');
+      document.getElementById('time').textContent = h + ":" + m;
+    }
+    setInterval(updateTime, 1000);
+    updateTime();
+
+    // Citations quotidiennes en français
+    const quotes = [
+      "Chaque jour est une nouvelle lune.",
+      "La brume cache, mais la lumière révèle.",
+      "Même dans l’ombre, la beauté persiste.",
+      "Le silence de la nuit est une poésie.",
+      "Sous la lune rouge, tout devient mystère.",
+      "Chaque souffle est une promesse d’aube.",
+      "La patience est la clé des étoiles."
+    ];
+
+    // Choisir une citation selon le jour
+    const today = new Date();
+    const index = today.getDate() % quotes.length;
+    document.getElementById('quote').textContent = quotes[index];
+  </script>
+</body>
+</html>
+

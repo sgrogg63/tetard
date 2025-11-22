@@ -1,0 +1,1 @@
+background: var(--bg) url('lune.jpg') no-repeat center center fixed;

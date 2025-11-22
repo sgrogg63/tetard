@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <title>Accueil — Pierre</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --text: #ffffff;
+      --soft: rgba(255,255,255,0.12);
+      --soft-strong: rgba(255,255,255,0.3);
+      --accent: #e74c3c;
+      --bg: #0b0b0e;
+    }
+
+    /* Page */
+    html, body {
+      height: 100%;
+    }
+    body {
+      margin: 0;
+      font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--text);
+      background: var(--bg) url('lune.jpg') no-repeat center center fixed;
+      background-size: cover;
+      display: grid;
+      grid-template-rows: 1fr auto;
+      animation: fadeIn 2.2s ease-in-out;
+    }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+    /* Contenu principal */
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 48px 24px 24px;
+      backdrop-filter: blur(2px);
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-shadow: 0 0 10px rgba(0,0,0,0.6);
+    }
+
+    .time {
+      font-size: clamp(48px, 10vw, 96px);
+      font-weight: 700;
+      line-height: 1;
+      margin: 6px 0 20px;
+      text-shadow: 0 0 24px rgba(0,0,0,0.55);
+    }
+
+    .quote {
+      position: relative;
+      font-size: clamp(16px, 2.3vw, 22px);
+      line-height: 1.5;
+      max-width: 800px;
+      margin: 12px 0 28px;
+      padding: 12px 14px;
+      background: linear-gradient(180deg, rgba(0,0,0,0.22), rgba(0,0,0,0.35));
+      border-radius: 12px;
+      border: 1px solid var(--soft);
+      opacity: 0;
+      animation: fadeQuote 12s ease-in-out infinite 0.6s;
+    }
+    .quote small {
+      display: block;
+      margin-top: 8px;
+      opacity: 0.8;
+      font-size: 0.9em;
+    }
+    @keyframes fadeQuote {
+      0% { opacity: 0; }
+      15% { opacity: 1; }
+      85% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+    .quote::after {
+      content: "";
+      position: absolute;
+      top: 0; left: -40%;
+      height: 100%; width: 40%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.22), transparent);
+      animation: shine 6s linear infinite;
+      pointer-events: none;
+      border-radius: 12px;
+    }
+    @keyframes shine {
+      from { transform: translateX(0); }
+      to { transform: translateX(250%); }
+    }
+
+    /* Liens rapides */
+    .links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin: 10px 0 24px;
+    }
+    .links a {
+      color: var(--text);
+      text-decoration: none;
+      padding: 10px 14px;
+      background: rgba(0,0,0,0.35);
+      border: 1px solid var(--soft);
+      border-radius: 10px;
+      transition: background 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+      backdrop-filter: blur(2px);
+    }
+    .links a:hover {
+      background: var(--soft-strong);
+      box-shadow: 0 0 14px rgba(255,255,255,0.45);
+      transform: translateY(-2px);
+    }
+
+    /* Recherche */
+    .search {
+      display: flex;
+      gap: 10px;
+      margin: 8px 0 28px;
+      flex-wrap: wrap;
+    }
+    .search input {
+      flex: 1 1 280px;
+      min-width: 220px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid var(--soft);
+      background: rgba(0,0,0,0.35);
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .search input::placeholder { color: rgba(255,255,255,0.75); }
+    .search input:focus {
+      border-color: var(--soft-strong);
+      box-shadow: 0 0 0 3px rgba(231,76,60,0.25);
+    }
+    .search button {
+      padding: 10px 16px;
+      border: 1px solid var(--soft);
+      border-radius: 10px;
+      background: var(--accent);
+      color: #fff;
+      cursor: pointer;
+      transition: filter 0.2s ease, transform 0.2s ease;
+    }
+    .search button:hover { filter: brightness(1.08); transform: translateY(-1px); }
+
+    /* Météo légère et visuelle */
+    .weather {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin: 6px 0 16px;
+      padding: 10px 12px;
+      background: rgba(0,0,0,0.35);
+      border: 1px solid var(--soft);
+      border-radius: 12px;
+      backdrop-filter: blur(2px);
+    }
+    .weather .icon {
+      width: 28px; height: 28px;
+      display: inline-block;
+      border-radius: 50%;
+      background:
+        radial-gradient(closest-side, #ffd347, #ffbe3b 70%, #ff9f1a 100%),
+        conic-gradient(from 220deg, rgba(255,255,255,0.45), transparent 30%);
+      box-shadow: 0 0 12px rgba(255, 180, 60, 0.6);
+    }
+    .weather .text {
+      font-size: 16px;
+      opacity: 0.9;
+    }
+
+    /* Pied discret */
+    footer {
+      padding: 14px 20px;
+      font-size: 12px;
+      color: rgba(255,255,255,0.7);
+      text-align: right;
+      background: linear-gradient(180deg, transparent, rgba(0,0,0,0.25));
+    }
+
+    /* Responsive */
+    @media (max-width: 520px) {
+      .links { justify-content: center; }
+      .quote { padding: 10px 12px; }
+      .weather { justify-content: center; }
+      footer { text-align: center; }
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <h1>Bienvenue, Pierre</h1>
+    <div class="time" id="time">--:--</div>
+
+    <div class="quote">
+      « Le succès n'est pas final. L'échec n'est pas fatal.
+      C'est le courage de continuer qui compte. »
+      <small>Winston Churchill</small>
+    </div>
+
+    <nav class="links" aria-label="Liens rapides">
+      <a href="https://www.google.com" target="_blank" rel="noopener">Google</a>
+      <a href="https://www.youtube.com" target="_blank" rel="noopener">YouTube</a>
+      <a href="https://www.wikipedia.org" target="_blank" rel="noopener">Wikipedia</a>
+      <a href="https://www.lemonde.fr" target="_blank" rel="noopener">Le Monde</a>
+    </nav>
+
+    <form class="search" action="https://www.google.com/search" method="GET" role="search">
+      <input type="text" name="q" placeholder="Rechercher..." aria-label="Rechercher" />
+      <button type="submit">Chercher</button>
+    </form>
+
+    <div class="weather" aria-label="Météo visuelle">
+      <span class="icon" aria-hidden="true"></span>
+      <span class="text">Royat • 21°C • ☀</span>
+    </div>
+  </main>
+
+  <footer>
+    Ambiance lunaire • Version statique
+  </footer>
+
+  <script>
+    // Heure dynamique HH:MM, mise à jour chaque minute
+    function updateTime() {
+      const now = new Date();
+      const hh = String(now.getHours()).padStart(2, '0');
+      const mm = String(now.getMinutes()).padStart(2, '0');
+      document.getElementById('time').textContent = hh + ":" + mm;
+    }
+    updateTime();
+    setInterval(updateTime, 30000);
+  </script>
+</body>
+</html>
+
